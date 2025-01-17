@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DESKTOP-BC6AR4O_MEDHAT_SERVER.gravity_books"
+  DTS:DTSID="{4BC1D619-77CB-4B1A-B166-3E8951473284}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=DESKTOP-BC6AR4O\MEDHAT_SERVER;Initial Catalog=gravity_books;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-gravity_store-{4BC1D619-77CB-4B1A-B166-3E8951473284}DESKTOP-BC6AR4O\MEDHAT_SERVER.gravity_books;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
