@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DESKTOP-BC6AR4O</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAki4XDEDHnEqe52dH3vDdTAAAAAACAAAAAAAQZgAAAAEAACAAAABR+pJZ7AhtPjA7B/vxdYofOHb14zI1tetfBPdAFob8VAAAAAAOgAAAAAIAACAAAACIvX6cDQmB1H05oEGlHkzRaWaBXHiXqdAQi/3pX8W+MJAAAABbK2haa4gRSEYtv6KpRt7T3QVO3FMw6nFFyQBa8tjjfzeZ9XpVvq6OCbFeQcopsyp7OMZzBzQ/jX5GXP/EJkA7mCd8sRQK6huEOxZQT9Gd7k/d846A4V7Oi00obJ8yKzSjWfWPUiBu/7L2I9AF/JQV9kHZ52pU3aa8BpmPZIdCUzvMu/tVNIrjM9Kq7GxmekRAAAAABUGCAA5o/bHs8yHcMuTJ1UP2KAxRxEXxoN1jk/22WP2NsVE63zBkE5AQ5C0StlUA68Kh9VH6WPXFiMHYDIxe4Q==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAki4XDEDHnEqe52dH3vDdTAAAAAACAAAAAAAQZgAAAAEAACAAAABh8/KG6KzjssDbpXsCz6S/ocNu5Wg6r5tVjtTrShZwjAAAAAAOgAAAAAIAACAAAADe9hFJNpAUwdZkI5icbRfnS+c8dmJrrNAD1X69rcaIYJAAAAByNNF6wPfUIgaV+H8KRwWxuCIdwg1Rs8R9qD08d4/Jpwwn+VUlpUT5OgmE7DK4lLFUoSO6jM04Opn1hQgJcHVg1gwEXXNPbu3eW1rxfWPgT82fWBtfbbqGMVTPMe5MtkZyRsdZ1lEWNtvh8Z3gHlRaFXGlR/NMcw/Vc+Hnrb5YkP93oK+J9f0ZJSySP2GshbRAAAAAHKQKo/2/5LPjsqDdje/ZVsziuV++fFTGghfyWDoseY0mWoGUvTai7WvxJCyw/j+ILNTnI06/I/f2Cr1MS50FFg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -37,6 +37,7 @@
           <SSIS:Package SSIS:Name="Order_Dim.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Customer_Dim.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="History_Dim.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="sales_fact.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="DESKTOP-BC6AR4O_MEDHAT_SERVER.gravity_books.conmgr" />
@@ -416,10 +417,10 @@
                 <SSIS:Property SSIS:Name="Name">Order_Dim</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">7</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{F4E0DA6C-E936-4F62-9295-E0E85115490E}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{0964F8E8-38A3-49E6-A167-275B2C1A5C73}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -454,6 +455,23 @@
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionGUID">{9E1EA99E-797E-4577-889E-D1B9CA49AD20}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="sales_fact.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{8B18485B-E1F8-4549-9222-89F167B45E81}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">sales_fact</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">19</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{255A83AD-971D-416F-ACEA-622AED39CA63}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

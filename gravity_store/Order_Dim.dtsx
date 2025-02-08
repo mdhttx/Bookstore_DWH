@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Order_Dim"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{F4E0DA6C-E936-4F62-9295-E0E85115490E}">
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{0964F8E8-38A3-49E6-A167-275B2C1A5C73}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -191,13 +191,13 @@ where [refTable].[address_id_bk] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task\OLE DB Command"
-              componentClassID="Microsoft.OLEDBCommand"
-              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
-              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
-              name="OLE DB Command"
+              refId="Package\Data Flow Task\Insert Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert Destination"
               usesDispositions="true"
-              version="2">
+              version="4">
               <properties>
                 <property
                   dataType="System.Int32"
@@ -205,18 +205,50 @@ where [refTable].[address_id_bk] = ?</property>
                   name="CommandTimeout">0</property>
                 <property
                   dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Order_Dim]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
                   description="The SQL command to be executed."
-                  expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[Order_Dim] SET [method_name] = ? WHERE [customer_id_bk] = ? AND [dest_address_bk] = ? AND [order_id_bk] = ? AND [shipping_method_bk] = ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
                   name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\OLE DB Command.Connections[OleDbConnection]"
+                  refId="Package\Data Flow Task\Insert Destination.Connections[OleDbConnection]"
                   connectionManagerID="{CCB1C5AA-D05E-4DA2-8475-658F8EF49D28}:external"
                   connectionManagerRefId="Project.ConnectionManagers[DESKTOP-BC6AR4O_MEDHAT_SERVER.DWH_gravity_store]"
                   description="The OLE DB runtime connection used to access the database."
@@ -224,132 +256,124 @@ where [refTable].[address_id_bk] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input]"
-                  errorOrTruncationOperation="Command Execution"
+                  refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
-                  name="OLE DB Command Input">
+                  name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[customer_id]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_id_bk]"
+                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[customer_id]"
                       cachedDataType="i4"
                       cachedName="customer_id"
-                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_id_bk]"
                       lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[customer_id]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[dest_address_id]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[shipping_method_id]"
+                      cachedDataType="i4"
+                      cachedName="shipping_method_id"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[shipping_method_bk]"
+                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[shipping_method_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[dest_address_id]"
                       cachedDataType="i4"
                       cachedName="dest_address_id"
-                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[dest_address_bk]"
                       lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[dest_address_id]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[method_name]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[address_id_sk]"
+                      cachedDataType="i4"
+                      cachedName="address_id_sk"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[dest_address_fk]"
+                      lineageId="Package\Data Flow Task\address_sk_lookup.Outputs[Lookup Match Output].Columns[address_id_sk]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[order_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_date"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_date]"
+                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[order_date]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[method_name]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="100"
                       cachedName="method_name"
-                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[method_name]"
                       lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[method_name]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[order_id]"
-                      cachedDataType="i4"
-                      cachedName="order_id"
-                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
-                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[order_id]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[shipping_method_id]"
-                      cachedDataType="i4"
-                      cachedName="shipping_method_id"
-                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
-                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[shipping_method_id]" />
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[ssc]"
+                      cachedDataType="ui1"
+                      cachedName="ssc"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[ssc]"
+                      lineageId="Package\Data Flow Task\ssc-1.Outputs[Derived Column Output].Columns[ssc]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_id_sk]"
+                      dataType="i4"
+                      name="order_id_sk" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_id_bk]"
+                      dataType="i4"
+                      name="order_id_bk" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_id_bk]"
+                      dataType="i4"
+                      name="customer_id_bk" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[shipping_method_bk]"
+                      dataType="i4"
+                      name="shipping_method_bk" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[dest_address_bk]"
+                      dataType="i4"
+                      name="dest_address_bk" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[dest_address_fk]"
+                      dataType="i4"
+                      name="dest_address_fk" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_date]"
+                      dataType="dbTimeStamp"
+                      name="order_date" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[method_name]"
                       codePage="1252"
                       dataType="str"
                       length="100"
-                      name="Param_0">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
-                          name="DBParamInfoFlags">65</property>
-                      </properties>
-                    </externalMetadataColumn>
+                      name="method_name" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
-                      dataType="i4"
-                      name="Param_1">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
-                          name="DBParamInfoFlags">81</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
-                      dataType="i4"
-                      name="Param_2">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
-                          name="DBParamInfoFlags">81</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
-                      dataType="i4"
-                      name="Param_3">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
-                          name="DBParamInfoFlags">81</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
-                      dataType="i4"
-                      name="Param_4">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
-                          name="DBParamInfoFlags">81</property>
-                      </properties>
-                    </externalMetadataColumn>
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[ssc]"
+                      dataType="ui1"
+                      name="ssc" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Output]"
-                  exclusionGroup="1"
-                  name="OLE DB Command Output"
-                  synchronousInputId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
-                  name="OLE DB Command Error Output"
-                  synchronousInputId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input]">
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -562,197 +586,6 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task\Order_Dim"
-              componentClassID="Microsoft.OLEDBDestination"
-              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
-              description="OLE DB Destination"
-              name="Order_Dim"
-              usesDispositions="true"
-              version="4">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                  name="CommandTimeout">0</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[dbo].[Order_Dim]</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the variable that contains the name of the database object used to open a rowset."
-                  name="OpenRowsetVariable"></property>
-                <property
-                  dataType="System.String"
-                  description="The SQL command to be executed."
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the column code page to use when code page information is unavailable from the data source."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Forces the use of the DefaultCodePage property value when describing character data."
-                  name="AlwaysUseDefaultCodePage">false</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the mode used to access the database."
-                  name="AccessMode"
-                  typeConverter="AccessMode">0</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
-                  name="FastLoadKeepIdentity">false</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
-                  name="FastLoadKeepNulls">false</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                  name="FastLoadOptions"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
-                  name="FastLoadMaxInsertCommitSize">2147483647</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\Data Flow Task\Order_Dim.Connections[OleDbConnection]"
-                  connectionManagerID="{CCB1C5AA-D05E-4DA2-8475-658F8EF49D28}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-BC6AR4O_MEDHAT_SERVER.DWH_gravity_store]"
-                  description="The OLE DB runtime connection used to access the database."
-                  name="OleDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input]"
-                  errorOrTruncationOperation="Insert"
-                  errorRowDisposition="FailComponent"
-                  hasSideEffects="true"
-                  name="OLE DB Destination Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].Columns[order_id]"
-                      cachedDataType="i4"
-                      cachedName="order_id"
-                      externalMetadataColumnId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[order_id_bk]"
-                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[order_id]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].Columns[customer_id]"
-                      cachedDataType="i4"
-                      cachedName="customer_id"
-                      externalMetadataColumnId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[customer_id_bk]"
-                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[customer_id]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].Columns[shipping_method_id]"
-                      cachedDataType="i4"
-                      cachedName="shipping_method_id"
-                      externalMetadataColumnId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[shipping_method_bk]"
-                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[shipping_method_id]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].Columns[dest_address_id]"
-                      cachedDataType="i4"
-                      cachedName="dest_address_id"
-                      externalMetadataColumnId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[dest_address_bk]"
-                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[dest_address_id]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].Columns[address_id_sk]"
-                      cachedDataType="i4"
-                      cachedName="address_id_sk"
-                      externalMetadataColumnId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[dest_address_fk]"
-                      lineageId="Package\Data Flow Task\address_sk_lookup.Outputs[Lookup Match Output].Columns[address_id_sk]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].Columns[order_date]"
-                      cachedDataType="dbTimeStamp"
-                      cachedName="order_date"
-                      externalMetadataColumnId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[order_date]"
-                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[order_date]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].Columns[method_name]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="method_name"
-                      externalMetadataColumnId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[method_name]"
-                      lineageId="Package\Data Flow Task\Order-Source.Outputs[OLE DB Source Output].Columns[method_name]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].Columns[ssc]"
-                      cachedDataType="ui1"
-                      cachedName="ssc"
-                      externalMetadataColumnId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[ssc]"
-                      lineageId="Package\Data Flow Task\ssc-1.Outputs[Derived Column Output].Columns[ssc]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[order_id_sk]"
-                      dataType="i4"
-                      name="order_id_sk" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[order_id_bk]"
-                      dataType="i4"
-                      name="order_id_bk" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[customer_id_bk]"
-                      dataType="i4"
-                      name="customer_id_bk" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[shipping_method_bk]"
-                      dataType="i4"
-                      name="shipping_method_bk" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[dest_address_bk]"
-                      dataType="i4"
-                      name="dest_address_bk" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[dest_address_fk]"
-                      dataType="i4"
-                      name="dest_address_fk" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[order_date]"
-                      dataType="dbTimeStamp"
-                      name="order_date" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[method_name]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
-                      name="method_name" />
-                    <externalMetadataColumn
-                      refId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input].ExternalColumns[ssc]"
-                      dataType="ui1"
-                      name="ssc" />
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Data Flow Task\Order_Dim.Outputs[OLE DB Destination Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Data Flow Task\Order_Dim.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Data Flow Task\Order_Dim.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Data Flow Task\Order_Dim.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
               refId="Package\Data Flow Task\Slowly Changing Dimension"
               componentClassID="Microsoft.SCD"
               contactInfo="Slowly Changing Dimension;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;3"
@@ -863,7 +696,7 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
                         <property
                           dataType="System.Int32"
                           name="ColumnType"
-                          typeConverter="ColumnType">2</property>
+                          typeConverter="ColumnType">4</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -1085,11 +918,6 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
           </components>
           <paths>
             <path
-              refId="Package\Data Flow Task.Paths[Changing Attribute Updates Output]"
-              endId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input]"
-              name="Changing Attribute Updates Output"
-              startId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Changing Attribute Updates Output]" />
-            <path
               refId="Package\Data Flow Task.Paths[Derived Column Output]"
               endId="Package\Data Flow Task\address_sk_lookup.Inputs[Lookup Input]"
               name="Derived Column Output"
@@ -1101,7 +929,7 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
               startId="Package\Data Flow Task\address_sk_lookup.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[New Output]"
-              endId="Package\Data Flow Task\Order_Dim.Inputs[OLE DB Destination Input]"
+              endId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]"
               name="New Output"
               startId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[New Output]" />
             <path
@@ -1139,16 +967,70 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="140.8,41.6"
-          Id="Package\Data Flow Task\Order-Source"
-          TopLeft="240.3,5.49999999999995" />
-        <NodeLayout
           Size="102.4,41.6"
           Id="Package\Data Flow Task\ssc-1"
-          TopLeft="259.5,107.1" />
+          TopLeft="226.1,107.1" />
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\Data Flow Task\address_sk_lookup"
+          TopLeft="193.3,208.7" />
+        <NodeLayout
+          Size="140.8,41.6"
+          Id="Package\Data Flow Task\Order-Source"
+          TopLeft="206.9,5.49999999999995" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\Data Flow Task\Slowly Changing Dimension"
+          TopLeft="173.3,310.3" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
-          TopLeft="310.7,47.1">
+          TopLeft="277.3,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Lookup Match Output]"
+          TopLeft="277.3,250.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Derived Column Output]"
+          TopLeft="277.3,148.7">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -1169,174 +1051,36 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="168,41.6"
-          Id="Package\Data Flow Task\address_sk_lookup"
-          TopLeft="254.3,208.7" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Derived Column Output]"
-          TopLeft="310.7,148.7">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="27.6,59.9999999999999"
-              Start="0,0"
-              End="27.6,52.4999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,25.9999999999999" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,25.9999999999999"
-                    Point2="0,29.9999999999999"
-                    Point3="4,29.9999999999999" />
-                  <mssgle:LineSegment
-                    End="23.6,29.9999999999999" />
-                  <mssgle:CubicBezierSegment
-                    Point1="23.6,29.9999999999999"
-                    Point2="27.6,29.9999999999999"
-                    Point3="27.6,33.9999999999999" />
-                  <mssgle:LineSegment
-                    End="27.6,52.4999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="208,41.6"
-          Id="Package\Data Flow Task\Slowly Changing Dimension"
-          TopLeft="206.7,310.3" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Lookup Match Output]"
-          TopLeft="338.3,250.3">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-27.5999999999999,60"
-              Start="0,0"
-              End="-27.5999999999999,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,26" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,26"
-                    Point2="0,30"
-                    Point3="-4,30" />
-                  <mssgle:LineSegment
-                    End="-23.5999999999999,30" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-23.5999999999999,30"
-                    Point2="-27.5999999999999,30"
-                    Point3="-27.5999999999999,34" />
-                  <mssgle:LineSegment
-                    End="-27.5999999999999,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-61.99138671875,35,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="129.6,41.6"
-          Id="Package\Data Flow Task\Order_Dim"
-          TopLeft="5.50000000000004,411.9" />
+          Size="162.4,41.6"
+          Id="Package\Data Flow Task\Insert Destination"
+          TopLeft="196.1,411.9" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[New Output]"
-          TopLeft="277.366666666667,351.9">
+          TopLeft="277.3,351.9">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-207.066666666667,60"
+              EndConnector="0,60"
               Start="0,0"
-              End="-207.066666666667,52.5">
+              End="0,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.2748091603053" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.2748091603053"
-                    Point2="0,24.2748091603053"
-                    Point3="-4,24.2748091603053" />
-                  <mssgle:LineSegment
-                    End="-203.066666666667,24.2748091603053" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-203.066666666667,24.2748091603053"
-                    Point2="-207.066666666667,24.2748091603053"
-                    Point3="-207.066666666667,28.2748091603053" />
-                  <mssgle:LineSegment
-                    End="-207.066666666667,52.5" />
+                    End="0,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-130.624720052083,29.2748091603053,54.1827734375,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="164.8,41.6"
-          Id="Package\Data Flow Task\OLE DB Command"
-          TopLeft="228.3,411.9" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Changing Attribute Updates Output]"
-          TopLeft="344.033333333333,351.9">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-33.3333333333333,60"
-              Start="0,0"
-              End="-33.3333333333333,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.2748091603054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.2748091603054"
-                    Point2="0,24.2748091603054"
-                    Point3="-4,24.2748091603054" />
-                  <mssgle:LineSegment
-                    End="-29.3333333333333,24.2748091603054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-29.3333333333333,24.2748091603054"
-                    Point2="-33.3333333333333,24.2748091603054"
-                    Point3="-33.3333333333333,28.2748091603054" />
-                  <mssgle:LineSegment
-                    End="-33.3333333333333,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-95.2005729166667,29.2748091603054,157.0678125,11.6630859375"
+              BoundingBox="-27.09138671875,20.533203125,54.1827734375,11.43359375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Order-Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Data Flow Task\address_sk_lookup">
     <Properties>
@@ -1353,8 +1097,16 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Order-Source">
+    <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>
@@ -1384,7 +1136,7 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
       &lt;ChangeType&gt;None&lt;/ChangeType&gt;
     &lt;/InputColumnToDBColumn&gt;
     &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Lookup.Outputs[Lookup Match Output].Columns[address_id_sk]&lt;/IdentificationString&gt;
+      &lt;IdentificationString&gt;address_sk_lookup.Outputs[Lookup Match Output].Columns[address_id_sk]&lt;/IdentificationString&gt;
       &lt;ColumnName&gt;dest_address_fk&lt;/ColumnName&gt;
       &lt;KeyType&gt;None&lt;/KeyType&gt;
       &lt;ChangeType&gt;FixedAttribute&lt;/ChangeType&gt;
@@ -1393,7 +1145,7 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
       &lt;IdentificationString&gt;Order-Source.Outputs[OLE DB Source Output].Columns[method_name]&lt;/IdentificationString&gt;
       &lt;ColumnName&gt;method_name&lt;/ColumnName&gt;
       &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+      &lt;ChangeType&gt;FixedAttribute&lt;/ChangeType&gt;
     &lt;/InputColumnToDBColumn&gt;
     &lt;InputColumnToDBColumn&gt;
       &lt;IdentificationString&gt;Order-Source.Outputs[OLE DB Source Output].Columns[order_date]&lt;/IdentificationString&gt;
@@ -1422,7 +1174,6 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
   &lt;/InputToColumnsCollection&gt;
   &lt;GeneratedComponentsIdentificationStrings&gt;
     &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
   &lt;/GeneratedComponentsIdentificationStrings&gt;
   &lt;FailFixedAttribute&gt;true&lt;/FailFixedAttribute&gt;
   &lt;FailChangeAttribute&gt;false&lt;/FailChangeAttribute&gt;
@@ -1436,19 +1187,6 @@ left join dbo.shipping_method sm on sm.method_id = co.shipping_method_id</proper
   &lt;DateVariable /&gt;
   &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
 &lt;/SCDWizardMetadata&gt;</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Order_Dim">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -2,7 +2,7 @@
 <BuildLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectInfo>
     <Name>gravity_store</Name>
-    <LastWriteTime>2025-01-18T00:44:21.6555423Z</LastWriteTime>
+    <LastWriteTime>2025-02-07T20:58:40.6547279Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
@@ -28,7 +28,7 @@
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Order_Dim.dtsx</Name>
-      <LastWriteTime>2025-01-18T00:26:09.1704687Z</LastWriteTime>
+      <LastWriteTime>2025-02-07T02:49:17.3184777Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
@@ -38,7 +38,12 @@
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>History_Dim.dtsx</Name>
-      <LastWriteTime>2025-01-18T00:44:21.6115376Z</LastWriteTime>
+      <LastWriteTime>2025-01-18T01:02:28.2905152Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>sales_fact.dtsx</Name>
+      <LastWriteTime>2025-02-08T00:27:19.0670733Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>
